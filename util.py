@@ -13,7 +13,7 @@ def key_pressed():
             # FIXME what to do on other platforms?
             raise ImportError('getch not available')
         else:
-            key = msvcrt.getch().decode('utf-8')
+            key = msvcrt.getch().decode()#('utf-8')
             return key
     else:
         fd = sys.stdin.fileno()
