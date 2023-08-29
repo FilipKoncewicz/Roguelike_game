@@ -1,6 +1,7 @@
 import random
- 
-def create_board(width, height):
+
+
+def create_board(number_of_rooms, width, height):
     '''
     Creates a new game board based on input parameters.
  
@@ -12,45 +13,82 @@ def create_board(width, height):
     list: Game board
     '''
     board = []
- 
-    top_wall = ["#"] * (width + 2)
-    board.append(top_wall)
- 
-    for _ in range(height):
-        row = ['#']
-        for _ in range(width):
-            row.append(" ")
-        row.append("#")
-        board.append(row)
- 
-    bottom_wall = ["#"] * (width + 2)
-    board.append(bottom_wall)
-    board = generate_random_gate(board)
+    for _ in range(number_of_rooms):
+        room = []
+    
+        top_wall = ["#"] * (width + 2)
+        room.append(top_wall)
+    
+        for _ in range(height):
+            row = ['#']
+            for _ in range(width):
+                row.append(" ")
+            row.append("#")
+            room.append(row)
+    
+        bottom_wall = ["#"] * (width + 2)
+        room.append(bottom_wall)
+        board.append(room)
+
+    # counter = 0
+    # last_wall_choice = None
+    # for counter in range(len(board)):
+    #     last_wall_choice, board[counter] = generate_random_gate(board[counter], last_wall_choice)
+
+    #     counter += 2
+    
+
+
     return board
- 
-def generate_random_gate(board):
+
+
+def connect_gate(board, last_wall_choice, gate_x, gate_y):
     width = len(board[0])
     height = len(board)
-    print(width)
-    print(height)
-    print(board)
+
+    if last_wall_choice == "top":
+        gate_x = gate_x
+        gate_y = gate_y + height - 1
+    elif last_wall_choice == "bottom":
+        gate_x = gate_x
+        gate_y = gate_y - height + 1
+    elif last_wall_choice == "left":
+        gate_x = gate_x + width -1
+        gate_y = gate_y
+    elif last_wall_choice == "right":
+        gate_x = gate_x - width + 1
+        gate_y = gate_y
+
+    board[gate_y][gate_x] = ' '
+    return board, gate_x, gate_y
+
+
+def generate_random_gate(board, last_wall_choice):
+    width = len(board[0])
+    height = len(board)
  
-    wall_choice = random.choice(["top", "bottom", "left", "right"])
- 
+    wall_choices = ["top", "bottom", "left", "right"]
+
+    if last_wall_choice in wall_choices:
+        wall_choices.remove(last_wall_choice)
+
+    wall_choice = random.choice(wall_choices)
+    
     if wall_choice == "top":
-        exit_x = random.randint(1, width - 2)
-        board[0][exit_x] = 'G'
+        gate_x = random.randint(1, width - 2)
+        gate_y = 0
     elif wall_choice == "bottom":
-        exit_x = random.randint(1, width - 2)
-        board[height - 1][exit_x] = 'G'
+        gate_x = random.randint(1, width - 2)
+        gate_y = height - 1
     elif wall_choice == "left":
-        exit_y = random.randint(1, height - 2)
-        board[exit_y][0] = 'G'
+        gate_x = 0
+        gate_y = random.randint(1, height - 2)
     elif wall_choice == "right":
-        exit_y = random.randint(1, height - 2)
-        board[exit_y][width - 1] = 'G'
- 
-    return board
+        gate_x = width - 1
+        gate_y = random.randint(1, height - 2)
+
+    board[gate_y][gate_x] = ' '
+    return board, wall_choice, gate_x, gate_y
  
  
 def put_player_on_board(board, player):
