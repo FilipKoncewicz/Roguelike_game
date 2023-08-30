@@ -1,5 +1,12 @@
 import random
 
+def put_boss(BOSS_ICON, board, position):
+    for j in range(len(BOSS_ICON)):
+        for i in range(len(BOSS_ICON[0])):
+            board[position[0]+j][position[1]+i] = BOSS_ICON[j][i]
+
+    return board
+
 
 def create_board(number_of_rooms, width, height):
     '''
@@ -29,16 +36,7 @@ def create_board(number_of_rooms, width, height):
         bottom_wall = ["#"] * (width + 2)
         room.append(bottom_wall)
         board.append(room)
-
-    # counter = 0
-    # last_wall_choice = None
-    # for counter in range(len(board)):
-    #     last_wall_choice, board[counter] = generate_random_gate(board[counter], last_wall_choice)
-
-    #     counter += 2
     
-
-
     return board
 
 
@@ -102,9 +100,18 @@ def put_player_on_board(board, player):
     Returns:
     Nothing
     '''
-    x,y = player['position x'],player['position y']
-    board[y][x]= player ["icon"]
+    x, y = player['position x'], player['position y']
+    board[y][x] = player["icon"]
  
+
+def put_monsters_on_board(board, monsters):
+
+    for monster in monsters:
+        x, y = monster['position x'], monster['position y']
+        board[monster['board']][y][x] = monster["icon"]
+
+    return board
+
  
 def remove_player_from_board(board, player):
     x,y = player['position x'],player['position y']

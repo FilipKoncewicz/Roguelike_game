@@ -5,14 +5,18 @@ def display_board(board):
     Returns:
     Nothing
     '''
+    # All in line
     for row in range(len(board[0])):
         for cell in range(len(board[0][0])):
-            print(board[0][row][cell], end = "")
+            print(board[0][row][cell], end = " ")
         print(" ", end = "")
         for cell in range(len(board[0][0])):
-            print(board[1][row][cell], end = "")
+            print(board[1][row][cell], end = " ")
         print(" ", end = "")
-        for cell in range(len(board[0][0])):
-            print(board[2][row][cell], end = "")
+        for cell in range(len(board[0][0])): 
+            print(board[2][row][cell], end = " ")
         print(" ", end = "")
         print()
+
+
+    
