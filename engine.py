@@ -1,11 +1,64 @@
 import random
+import validator
 
-def put_boss(BOSS_ICON, board, position):
-    for j in range(len(BOSS_ICON)):
-        for i in range(len(BOSS_ICON[0])):
-            board[position[0]+j][position[1]+i] = BOSS_ICON[j][i]
 
-    return board
+def move_monster(board, player, monster):
+    if abs(player["position x"] - monster["position x"]) == 1 and abs(player["position y"] - monster["position y"]) == 0 or abs(player["position x"] - monster["position x"]) == 1 and abs(player["position y"] - monster["position y"]) == 0:
+        return monster
+    if abs(player["position x"] - monster["position x"]) >= abs(player["position y"] - monster["position y"]):
+        if player["position x"] - monster["position x"] > 0:
+            monster["position x"] += 1
+        else:
+            monster["position x"] -= 1
+    elif abs(player["position y"] - monster["position y"]) >= abs(player["position x"] - monster["position x"]):
+        if player["position y"] - monster["position y"] > 0:
+            monster["position y"] += 1
+        else:
+            monster["position y"] -= 1
+
+    if validator.validate_boss_turn(board, monster, player):
+        return monster  
+
+def check_area(board, boss, player):
+    area = []
+    inside = []
+    area_new = []
+
+
+    for i in range(-3, 4):
+        for j in range(-3,4):
+            area.append([i, j])
+
+    for i in range(-2, 3):
+        for j in range(-2,3):
+            inside.append([i, j])
+
+    for position in area:
+        if position not in inside:
+            area_new.append(position)
+
+    for position in area_new:
+        if [boss["position x"] + position[0], boss["position y"] + position[1]] == [player["position x"], player["position y"]]:
+            return True
+    return False
+
+
+def move_boss(board, player, boss):
+    if check_area(board, boss, player):
+        return boss
+    if abs(player["position x"] - boss["position x"]) >= abs(player["position y"] - boss["position y"]):
+        if player["position x"] - boss["position x"] > 0:
+            boss["position x"] += 1
+        else:
+            boss["position x"] -= 1
+    elif abs(player["position y"] - boss["position y"]) >= abs(player["position x"] - boss["position x"]):
+        if player["position y"] - boss["position y"] > 0:
+            boss["position y"] += 1
+        else:
+            boss["position y"] -= 1
+
+    if validator.validate_boss_turn(board, boss, player):
+        return boss  
 
 
 def create_board(number_of_rooms, width, height):
@@ -105,10 +158,17 @@ def put_player_on_board(board, player):
  
 
 def put_monsters_on_board(board, monsters):
-
     for monster in monsters:
         x, y = monster['position x'], monster['position y']
         board[monster['board']][y][x] = monster["icon"]
+
+    return board
+
+
+def put_boss_on_board(board, boss):
+    for j in range(len(boss["icon"])):
+        for i in range(len(boss["icon"][0])):
+            board[boss["board"]][boss["position y"]+j-2][boss["position x"]+i-2] = boss["icon"][j][i]
 
     return board
 
@@ -116,3 +176,12 @@ def put_monsters_on_board(board, monsters):
 def remove_player_from_board(board, player):
     x,y = player['position x'],player['position y']
     board[y][x] = ' '
+    return board
+
+
+def remove_boss_from_board(board, boss):
+    for j in range(len(boss["icon"])):
+        for i in range(len(boss["icon"][0])):
+            board[boss["board"]][boss["position y"]+j-2][boss["position x"]+i-2] = ' '
+    return board
+    

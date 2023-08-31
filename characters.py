@@ -72,3 +72,18 @@ def create_monsters(board):
     monsters = [spider_1, spider_2, mummy_1, mummy_2, mummy_3, zombie_1, zombie_2]
 
     return monsters
+                
+
+def create_boss(board):
+    boss = {
+    "name": "boss",
+    "icon": [['%', '%', '%', '%', '%'], ['%', '%', '%', '%', '%'], ['%', '%', '%', '%', '%'], ['%', '%', '%', '%', '%'], ['%', '%', '%', '%', '%']],
+    #"icon": '%',
+    "position x": int(len(board[0][0])/2),
+    "position y": int(len(board[0])/2),
+    "board": 2,
+    "lives": 30,
+    "strength": [5, 7]
+    }
+
+    return boss

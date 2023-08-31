@@ -8,12 +8,6 @@ import characters
 PLAYER_ICON = '@'
 PLAYER_START_X = 3
 PLAYER_START_Y = 3
-FOOD_ICON = 'A'
-ENEMY_ICON_SPIDER = 'B' # spider
-ENEMY_ICON_MUMMY = 'M' # mummy
-ENEMY_ICON_ZOMBIE = 'Z' # zombie
-BOSS_ICON = [['%', '%', '%', '%', '%'], ['%', '%', '%', '%', '%'], ['%', '%', '%', '%', '%'], ['%', '%', '%', '%', '%'], ['%', '%', '%', '%', '%']]
-
 NUMBER_OF_ROOMS = 3
 BOARD_WIDTH = 15
 BOARD_HEIGHT = 10
@@ -58,22 +52,22 @@ def main():
 
     gates = [[gate_x_0_1, gate_y_0_1], [gate_x_1_0, gate_y_1_0], [gate_x_1_2,gate_y_1_2], [gate_x_2_1,gate_y_2_1]]
     monsters = characters.create_monsters(board)
+    boss = characters.create_boss(board)
     # ui.display_board(board)
-    position = [2, 2]
-    board[2] = engine.put_boss(BOSS_ICON, board[2], position)
     engine.put_monsters_on_board(board, monsters)
+    engine.put_boss_on_board(board, boss)
 
-    board = game(board, player, gates)
+    board = game(board, player, gates, monsters, boss)
     # ui.display_board(board)
 
     
-def game(board, player, gates):
+def game(board, player, gates, monsters, boss):
     is_running = True
+    boss_turn_counter = 0
     while is_running:
-        #util.clear_screen()
-        # print(player['board'])
-        # print(board)
+        util.clear_screen()
         engine.put_player_on_board(board[player['board']], player)
+        engine.put_boss_on_board(board, boss)
         
         ui.display_board(board)
 
@@ -84,13 +78,20 @@ def game(board, player, gates):
         elif key in 'wasd':
             player_new_x = player['position x'] + DIRECTIONS_X[key]
             player_new_y = player['position y'] + DIRECTIONS_Y[key]
+            boss_turn_counter += 1
         
         engine.remove_player_from_board(board[player['board']], player)
+        board = engine.remove_boss_from_board(board, boss)
+
+        
+        if (player["board"] == boss["board"]) and (boss_turn_counter % 5 == 0):
+            engine.move_boss(board, player, boss)
+
+
 
         if validator.validate_turn(board[player['board']], (player_new_x, player_new_y)):
             player['position x'] = player_new_x
             player['position y'] = player_new_y
-        
 
         if [player['position x'], player['position y']] == gates[0]:
             player['board'] = 1
