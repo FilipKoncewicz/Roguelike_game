@@ -46,7 +46,7 @@ def move_monster(board, player, monster):
     if validator.validate_boss_turn(board, monster, player):
         return monster  
 
-def check_boss_area(board, boss, player):
+def check_boss_area(boss, player):
     area = []
     inside = []
     area_new = []
@@ -71,7 +71,7 @@ def check_boss_area(board, boss, player):
 
 
 def move_boss(board, player, boss):
-    if check_boss_area(board, boss, player):
+    if check_boss_area(boss, player):
         return boss
     if abs(player["position x"] - boss["position x"]) >= abs(player["position y"] - boss["position y"]):
         if player["position x"] - boss["position x"] > 0:

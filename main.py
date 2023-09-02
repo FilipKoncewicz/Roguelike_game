@@ -103,7 +103,8 @@ def game(board, player, gates, monsters, boss):
 
         board = engine.remove_boss_from_board(board, boss)
         if (player["board"] == boss["board"]) and (boss_turn_counter % 5 == 0):
-            boss["condition"] = 0
+            if not engine.check_boss_area(boss, player):
+                boss["condition"] = 0
             engine.move_boss(board, player, boss)
 
 
