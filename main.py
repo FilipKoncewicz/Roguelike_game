@@ -63,7 +63,7 @@ def main():
 def game(board, player, gates, monsters, boss):
     boss_turn_counter = 0
     while player["lives"] > 0:
-        #util.clear_screen()
+        util.clear_screen()
         engine.put_player_on_board(board[player['board']], player)
 
         if boss["lives"] > 0:
