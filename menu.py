@@ -3,7 +3,7 @@ from picture import PICTURE_MENU,PICTURE_MENU_2,PICTURE_STORY_1,PICTURE_STORY_2,
 from util import clear_screen
 from sys import exit
 from main import initiate_game
-from music import menu_music
+from music import menu_music,head_music,story_music
 
 
 
@@ -61,7 +61,9 @@ def game():
 
     if game_mode == '1':
         clear_screen()
+        story_music()
         display_story()
+        head_music()
         initiate_game()
     elif game_mode == '2':
         exit()
@@ -80,6 +82,7 @@ def display_story():
 ........
  ''')
     clear_screen()
+
     
     
     
