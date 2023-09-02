@@ -1,3 +1,32 @@
+def create_player():
+    '''
+    Creates a 'player' dictionary for storing all player related informations - i.e. player icon, player position.
+    Fell free to extend this dictionary!
+
+    Returns:
+    dictionary
+    '''
+    PLAYER_ICON = '@'
+    PLAYER_START_X = 3
+    PLAYER_START_Y = 3
+
+    player_name = "l"# input("Enter player's name: ")
+
+    player = {
+    "name": player_name,
+    "icon": PLAYER_ICON, 
+    "position x": PLAYER_START_X,
+    "position y": PLAYER_START_Y,
+    "board": 0,
+    "lives": 10,
+    "armor": 0,
+    "strength": 1,
+    "inventory": []
+    }
+
+    return player
+
+
 def create_monsters(board):
     spider_1 = {
     "name": "spider 1",
