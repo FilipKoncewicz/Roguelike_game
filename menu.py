@@ -3,7 +3,7 @@ from picture import PICTURE_MENU,PICTURE_MENU_2,PICTURE_STORY_1,PICTURE_STORY_2,
 from util import clear_screen
 from sys import exit
 from main import initiate_game
-
+from music import menu_music
 
 
 
@@ -56,6 +56,7 @@ def game():
     Returns:
         Lack
     """
+    menu_music()
     game_mode = get_menu_option()
 
     if game_mode == '1':
