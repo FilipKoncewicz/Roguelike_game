@@ -41,7 +41,8 @@ def create_player():
     return player
 
 
-def main():
+def initiate_game():
+    util.clear_screen
     player = create_player()
     
     board = engine.create_board(NUMBER_OF_ROOMS, BOARD_WIDTH, BOARD_HEIGHT)
@@ -122,5 +123,3 @@ def game(board, player, gates, monsters, boss):
     print("The end")
 
 
-if __name__ == '__main__':
-    main()
