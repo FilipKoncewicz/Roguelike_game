@@ -1,6 +1,33 @@
 import random
 import validator
 
+def attack_boss(player,boss):
+    inside = []
+
+    for i in range(-2, 3):
+        for j in range(-2,3):
+            inside.append([i, j])
+
+    for position in inside:
+        if [boss["position x"] + position[0], boss["position y"] + position[1]] == [player["position x"], player["position y"]]:
+            return True
+    return False
+
+
+def fight_boss(boss, player):
+    boss["lives"] -= player["strength"]
+    boss["attacks_in_cycle"] += 1
+
+    if boss["condition"] == 1:
+        player["lives"] -= 5
+        boss["condition"] = 0
+    
+    if boss["attacks_in_cycle"] == 2:
+        boss["attacks_in_cycle"] = 0
+        boss["condition"] = 1
+    
+    
+    return boss, player
 
 def move_monster(board, player, monster):
     if abs(player["position x"] - monster["position x"]) == 1 and abs(player["position y"] - monster["position y"]) == 0 or abs(player["position x"] - monster["position x"]) == 1 and abs(player["position y"] - monster["position y"]) == 0:
@@ -19,7 +46,7 @@ def move_monster(board, player, monster):
     if validator.validate_boss_turn(board, monster, player):
         return monster  
 
-def check_area(board, boss, player):
+def check_boss_area(board, boss, player):
     area = []
     inside = []
     area_new = []
@@ -44,7 +71,7 @@ def check_area(board, boss, player):
 
 
 def move_boss(board, player, boss):
-    if check_area(board, boss, player):
+    if check_boss_area(board, boss, player):
         return boss
     if abs(player["position x"] - boss["position x"]) >= abs(player["position y"] - boss["position y"]):
         if player["position x"] - boss["position x"] > 0:

@@ -24,10 +24,10 @@ def create_player():
     Returns:
     dictionary
     '''
-    # player_name = input("Enter player's name: ")
+    player_name = "l"# input("Enter player's name: ")
 
     player = {
-    "name": 'l',#player_name,
+    "name": player_name,
     "icon": PLAYER_ICON, 
     "position x": PLAYER_START_X,
     "position y": PLAYER_START_Y,
@@ -53,23 +53,34 @@ def main():
     gates = [[gate_x_0_1, gate_y_0_1], [gate_x_1_0, gate_y_1_0], [gate_x_1_2,gate_y_1_2], [gate_x_2_1,gate_y_2_1]]
     monsters = characters.create_monsters(board)
     boss = characters.create_boss(board)
-    # ui.display_board(board)
     engine.put_monsters_on_board(board, monsters)
     engine.put_boss_on_board(board, boss)
 
     board = game(board, player, gates, monsters, boss)
-    # ui.display_board(board)
+
 
     
 def game(board, player, gates, monsters, boss):
-    is_running = True
     boss_turn_counter = 0
-    while is_running:
-        util.clear_screen()
+    while player["lives"] > 0:
+        #util.clear_screen()
         engine.put_player_on_board(board[player['board']], player)
-        engine.put_boss_on_board(board, boss)
-        
-        ui.display_board(board)
+
+        if boss["lives"] > 0:
+            engine.put_boss_on_board(board, boss)
+
+        ui.display_board(board[player['board']],boss)
+        # ui.display_board_in_line(board)
+
+        print("Player's lives: ", end = " ") 
+        print(player["lives"])
+        print("Boss's lives: ", end = " ") 
+        print(boss["lives"])
+        print("Boss's condition: ", end = " ") 
+        print(boss["condition"])
+        print("attacks_in_cycle: ", end = " ")
+        print(boss["attacks_in_cycle"])
+
 
         key = util.key_pressed()
 
@@ -80,18 +91,20 @@ def game(board, player, gates, monsters, boss):
             player_new_y = player['position y'] + DIRECTIONS_Y[key]
             boss_turn_counter += 1
         
-        engine.remove_player_from_board(board[player['board']], player)
-        board = engine.remove_boss_from_board(board, boss)
-
+        if board[player['board']][player_new_y][player_new_x] == "%":
+            engine.fight_boss(boss, player)
         
-        if (player["board"] == boss["board"]) and (boss_turn_counter % 5 == 0):
-            engine.move_boss(board, player, boss)
 
-
-
+        engine.remove_player_from_board(board[player['board']], player)
         if validator.validate_turn(board[player['board']], (player_new_x, player_new_y)):
             player['position x'] = player_new_x
             player['position y'] = player_new_y
+
+        board = engine.remove_boss_from_board(board, boss)
+        if (player["board"] == boss["board"]) and (boss_turn_counter % 5 == 0):
+            boss["condition"] = 0
+            engine.move_boss(board, player, boss)
+
 
         if [player['position x'], player['position y']] == gates[0]:
             player['board'] = 1
@@ -105,6 +118,8 @@ def game(board, player, gates, monsters, boss):
         elif [player['position x'], player['position y']] == gates[3]:
             player['board'] = 1
             player['position x'], player['position y'] = gates[2]
+
+    print("The end")
 
 
 if __name__ == '__main__':

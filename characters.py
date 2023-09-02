@@ -83,7 +83,9 @@ def create_boss(board):
     "position y": int(len(board[0])/2),
     "board": 2,
     "lives": 30,
-    "strength": [5, 7]
+    "strength": 5,
+    "condition": 0,
+    "attacks_in_cycle": 0
     }
 
     return boss
