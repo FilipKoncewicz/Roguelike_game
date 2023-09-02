@@ -53,3 +53,28 @@ def display_board_in_line(board):
             print(board[2][row][cell], end = " ")
         print(" ", end = "")
         print()
+
+
+def display_boss_hud(boss):
+    print("Boss's lives: ", end = " ") 
+    print(boss["lives"])
+    print("Boss's defense condition: ", end = " ")
+    if boss["condition"] == 0:
+        print("weak - Attack boss!")
+    else:
+        print("strong - Don't attack boss!")
+
+
+def display_hud(player, boss):
+    print("Lives: ", end = " ") 
+    print(player["lives"])
+    print("Armor: ", end = " ") 
+    print(player["armor"])
+    print("Inventory: ", end = " ") 
+    for item in player["inventory"]:
+        print(item, end = " ")
+    print()
+
+    if player["board"] == 2:
+        display_boss_hud(boss)
+        
