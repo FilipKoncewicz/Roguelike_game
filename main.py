@@ -5,9 +5,6 @@ import validator
 import characters
 
 
-PLAYER_ICON = '@'
-PLAYER_START_X = 3
-PLAYER_START_Y = 3
 NUMBER_OF_ROOMS = 3
 BOARD_WIDTH = 15
 BOARD_HEIGHT = 10
@@ -16,34 +13,9 @@ DIRECTIONS_X = {'w': 0, 'd': 1, 's': 0, 'a': -1}
 DIRECTIONS_Y = {'w': -1, 'd': 0, 's': 1, 'a': 0}
 
 
-def create_player():
-    '''
-    Creates a 'player' dictionary for storing all player related informations - i.e. player icon, player position.
-    Fell free to extend this dictionary!
-
-    Returns:
-    dictionary
-    '''
-    player_name = "l"# input("Enter player's name: ")
-
-    player = {
-    "name": player_name,
-    "icon": PLAYER_ICON, 
-    "position x": PLAYER_START_X,
-    "position y": PLAYER_START_Y,
-    "board": 0,
-    "lives": 10,
-    "armor": 0,
-    "strength": 1,
-    "inventory": []
-    }
-
-    return player
-
-
 def initiate_game():
     util.clear_screen
-    player = create_player()
+    player = characters.create_player()
     
     board = engine.create_board(NUMBER_OF_ROOMS, BOARD_WIDTH, BOARD_HEIGHT)
     board[0], last_wall_choice, gate_x_0_1, gate_y_0_1 = engine.generate_random_gate(board[0], None)
@@ -63,7 +35,9 @@ def initiate_game():
     
 def game(board, player, gates, monsters, boss):
     boss_turn_counter = 0
-    while player["lives"] > 0:
+    is_running = True
+
+    while player["lives"] > 0 and is_running:
         util.clear_screen()
         engine.put_player_on_board(board[player['board']], player)
 
@@ -73,15 +47,7 @@ def game(board, player, gates, monsters, boss):
         ui.display_board(board[player['board']],boss)
         # ui.display_board_in_line(board)
 
-        print("Player's lives: ", end = " ") 
-        print(player["lives"])
-        print("Boss's lives: ", end = " ") 
-        print(boss["lives"])
-        print("Boss's condition: ", end = " ") 
-        print(boss["condition"])
-        print("attacks_in_cycle: ", end = " ")
-        print(boss["attacks_in_cycle"])
-
+        ui.display_hud(player, boss)
 
         key = util.key_pressed()
 
@@ -103,7 +69,8 @@ def game(board, player, gates, monsters, boss):
 
         board = engine.remove_boss_from_board(board, boss)
         if (player["board"] == boss["board"]) and (boss_turn_counter % 5 == 0):
-            boss["condition"] = 0
+            if not engine.check_boss_neighborhood(boss, player):
+                boss["condition"] = 0
             engine.move_boss(board, player, boss)
 
 

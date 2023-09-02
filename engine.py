@@ -46,32 +46,36 @@ def move_monster(board, player, monster):
     if validator.validate_boss_turn(board, monster, player):
         return monster  
 
-def check_boss_area(board, boss, player):
+def check_boss_neighborhood(boss, player):
     area = []
-    inside = []
-    area_new = []
+    interior = []
+    neighborhood = []
 
+    min_boss = -2
+    max_boss = 2
+    min_around_boss = -3
+    max_around_boss = 3
 
-    for i in range(-3, 4):
-        for j in range(-3,4):
-            area.append([i, j])
+    for x in range(min_around_boss, max_around_boss + 1):
+        for y in range(min_around_boss, max_around_boss + 1):
+            area.append([x, y])
 
-    for i in range(-2, 3):
-        for j in range(-2,3):
-            inside.append([i, j])
+    for x in range(min_boss, max_boss + 1):
+        for y in range(min_boss, max_boss + 1):
+            interior.append([x, y])
 
     for position in area:
-        if position not in inside:
-            area_new.append(position)
+        if position not in interior:
+            neighborhood.append(position)
 
-    for position in area_new:
+    for position in neighborhood:
         if [boss["position x"] + position[0], boss["position y"] + position[1]] == [player["position x"], player["position y"]]:
             return True
     return False
 
 
 def move_boss(board, player, boss):
-    if check_boss_area(board, boss, player):
+    if check_boss_neighborhood(boss, player):
         return boss
     if abs(player["position x"] - boss["position x"]) >= abs(player["position y"] - boss["position y"]):
         if player["position x"] - boss["position x"] > 0:
