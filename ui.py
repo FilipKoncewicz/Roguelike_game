@@ -28,7 +28,7 @@ def display_board(board, boss):
             elif cell in "XMZ":
                 print(RED + cell, end = " ")
             elif cell == "%" and boss["condition"] == 0:
-                print(BLUE + cell, end = " ")
+                print(GREEN + cell, end = " ")
             elif cell == "%" and boss["condition"] == 1:
                 print(MAGENTA + cell, end = " ")
             elif cell == "F":
