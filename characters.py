@@ -142,6 +142,7 @@ def create_items(board):
     "position y": len(board[0]) - 11,
     "default turn": [0, 1],
     "board": 1,
+    "strength": 2
     }
 
     items =[armor,wand]

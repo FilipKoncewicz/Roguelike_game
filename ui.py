@@ -34,7 +34,7 @@ def display_board(board, boss):
             elif cell == "🥼":
                 print(cell, end = "")
             elif cell in "🪄":
-                print(cell, end = " ")
+                print(cell, end = "")
             elif cell == "K":
                 print(YELLOW + cell, end = " ")
         print(Style.RESET_ALL)
