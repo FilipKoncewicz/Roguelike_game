@@ -28,8 +28,8 @@ def create_player():
 
 
 def create_monsters(board):
-    spider_1 = {
-    "name": "spider 1",
+    ghost_1 = {
+    "name": "ghost 1",
     "icon": "👻",
     "position x": len(board[0][0]) - 3,
     "position y": 1,
@@ -39,8 +39,8 @@ def create_monsters(board):
     "strength": [0, 1]
     }
 
-    spider_2 = {
-    "name": "spider 2",
+    ghost_2 = {
+    "name": "ghost 2",
     "icon": "👻",
     "position x": 1,
     "position y": int(len(board[0])/2),
@@ -51,7 +51,7 @@ def create_monsters(board):
     }
 
     mummy_1 = {
-    "name": "mummy_1",
+    "name": "mummy 1",
     "icon": "👳", 
     "position x": len(board[0][0]) - 2,
     "position y": int(len(board[0])/2) + 3,
@@ -62,7 +62,7 @@ def create_monsters(board):
     }
 
     mummy_2 = {
-    "name": "mummy_2",
+    "name": "mummy 2",
     "icon": "👳", 
     "position x": int(len(board[0][0])/2) + 3,
     "position y": len(board[0]) - 2,
@@ -73,7 +73,7 @@ def create_monsters(board):
     }
 
     mummy_3 = {
-    "name": "mummy_3",
+    "name": "mummy 3",
     "icon": "👳", 
     "position x": 3,
     "position y": 1,
@@ -83,8 +83,8 @@ def create_monsters(board):
     "strength": [1, 2]
     }
 
-    zombie_1 = {
-    "name": "zombie_1",
+    demon_1 = {
+    "name": "demon 1",
     "icon": "👹",
     "position x": 1,
     "position y": 2,
@@ -94,8 +94,8 @@ def create_monsters(board):
     "strength": [2, 3]
     }
 
-    zombie_2 = {
-    "name": "zombie_2",
+    demon_2 = {
+    "name": "demon 2",
     "icon": "👹",
     "position x": len(board[0][0]) - 2,
     "position y": int(len(board[0])/2) + 3,
@@ -105,7 +105,7 @@ def create_monsters(board):
     "strength": [2, 3]
     }
 
-    monsters = [spider_1, spider_2, mummy_1, mummy_2, mummy_3, zombie_1, zombie_2]
+    monsters = [ghost_1, ghost_2, mummy_1, mummy_2, mummy_3, demon_1, demon_2]
 
     return monsters
                 

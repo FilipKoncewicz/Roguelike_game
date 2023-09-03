@@ -3,16 +3,15 @@ import validator
 
 
 def change_direction(board, new_monster_position_x, new_monster_position_y, monster):
-    if board[new_monster_position_y][new_monster_position_x] == "#" and monster["default turn"][0] == -1:
+    if board[new_monster_position_y][new_monster_position_x] == "🌫️" and monster["default turn"][0] == -1:
         monster["default turn"][0] = 1
-    elif board[new_monster_position_y][new_monster_position_x] == "#" and monster["default turn"][0] == 1:
+    elif board[new_monster_position_y][new_monster_position_x] == "🌫️" and monster["default turn"][0] == 1:
         monster["default turn"][0] = -1
-    elif board[new_monster_position_y][new_monster_position_x] == "#" and monster["default turn"][1] == -1:
+    elif board[new_monster_position_y][new_monster_position_x] == "🌫️" and monster["default turn"][1] == -1:
         monster["default turn"][1] = 1
-    elif board[new_monster_position_y][new_monster_position_x] == "#" and monster["default turn"][1] == 1:
+    elif board[new_monster_position_y][new_monster_position_x] == "🌫️" and monster["default turn"][1] == 1:
         monster["default turn"][1] = -1
     return monster
-
 
 def move_monsters(monsters, player, board):
     for monster in monsters:
@@ -134,17 +133,17 @@ def create_board(number_of_rooms, width, height):
     for _ in range(number_of_rooms):
         room = []
     
-        top_wall = ["#"] * (width + 2)
+        top_wall = ["🌫️"] * (width + 2)
         room.append(top_wall)
     
         for _ in range(height):
-            row = ['#']
+            row = ['🌫️']
             for _ in range(width):
                 row.append(" ")
-            row.append("#")
+            row.append("🌫️")
             room.append(row)
     
-        bottom_wall = ["#"] * (width + 2)
+        bottom_wall = ["🌫️"] * (width + 2)
         room.append(bottom_wall)
         board.append(room)
     

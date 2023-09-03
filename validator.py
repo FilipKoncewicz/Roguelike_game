@@ -1,7 +1,7 @@
 def validate_turn(board, player_new_coordinates):
     x,y = player_new_coordinates
     
-    if board[y][x] in "#👾👻👳👹️":
+    if board[y][x] in "🌫️👾👻👳👹️":
         return False
     
     return True

@@ -45,7 +45,7 @@ def get_menu_option():
             option = display_menu()
 
 
-def game():
+def run_game():
     """
     The function retrieves the menu option from the user and runs further functions depending on the selection.
 

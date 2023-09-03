@@ -19,18 +19,18 @@ def display_board(board, boss):
     '''
     for row in board:
         for cell in row:
-            if cell == '#':
-                print(CYAN + cell, end = " ")
+            if cell == '🌫️':
+                print(cell, end = " ")
             elif cell == '🧙':
-                print(WHITE + cell, end = "")
+                print(cell, end = "")
             elif cell == ' ':
                 print(WHITE + cell, end = " ")
             elif cell in "👻👳👹️":
-                print(RED + cell, end = "")
+                print(cell, end = "")
             elif cell == "👾" and boss["condition"] == 0:
-                print(GREEN + cell, end = "")
+                print(cell, end = "")
             elif cell == "👾" and boss["condition"] == 1:
-                print(MAGENTA + cell, end = "")
+                print(cell, end = "")
             elif cell == "F":
                 print(GREEN + cell, end = " ")
             elif cell in "SA":
