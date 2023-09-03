@@ -58,7 +58,7 @@ def game(board, player, gates, monsters, boss):
             player_new_y = player['position y'] + DIRECTIONS_Y[key]
             boss_turn_counter += 1
         
-        if board[player['board']][player_new_y][player_new_x] == "%":
+        if board[player['board']][player_new_y][player_new_x] == "👾":
             engine.fight_boss(boss, player)
         
         engine.remove_player_from_board(board[player['board']], player)

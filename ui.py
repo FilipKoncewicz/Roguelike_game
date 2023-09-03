@@ -25,12 +25,12 @@ def display_board(board, boss):
                 print(WHITE + cell, end = "")
             elif cell == ' ':
                 print(WHITE + cell, end = " ")
-            elif cell in "XMZ":
-                print(RED + cell, end = " ")
-            elif cell == "%" and boss["condition"] == 0:
-                print(GREEN + cell, end = " ")
-            elif cell == "%" and boss["condition"] == 1:
-                print(MAGENTA + cell, end = " ")
+            elif cell in "👻👳👹️":
+                print(RED + cell, end = "")
+            elif cell == "👾" and boss["condition"] == 0:
+                print(GREEN + cell, end = "")
+            elif cell == "👾" and boss["condition"] == 1:
+                print(MAGENTA + cell, end = "")
             elif cell == "F":
                 print(GREEN + cell, end = " ")
             elif cell in "SA":

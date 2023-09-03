@@ -30,7 +30,7 @@ def create_player():
 def create_monsters(board):
     spider_1 = {
     "name": "spider 1",
-    "icon": "X", 
+    "icon": "👻",
     "position x": len(board[0][0]) - 3,
     "position y": 1,
     "default turn": [0, 1],
@@ -41,7 +41,7 @@ def create_monsters(board):
 
     spider_2 = {
     "name": "spider 2",
-    "icon": "X", 
+    "icon": "👻",
     "position x": 1,
     "position y": int(len(board[0])/2),
     "default turn": [1, 0],
@@ -52,7 +52,7 @@ def create_monsters(board):
 
     mummy_1 = {
     "name": "mummy_1",
-    "icon": "M", 
+    "icon": "👳", 
     "position x": len(board[0][0]) - 2,
     "position y": int(len(board[0])/2) + 3,
     "default turn": [-1, 0],
@@ -63,7 +63,7 @@ def create_monsters(board):
 
     mummy_2 = {
     "name": "mummy_2",
-    "icon": "M", 
+    "icon": "👳", 
     "position x": int(len(board[0][0])/2) + 3,
     "position y": len(board[0]) - 2,
     "default turn": [0, -1],
@@ -74,7 +74,7 @@ def create_monsters(board):
 
     mummy_3 = {
     "name": "mummy_3",
-    "icon": "M", 
+    "icon": "👳", 
     "position x": 3,
     "position y": 1,
     "default turn": [0, 1],
@@ -85,7 +85,7 @@ def create_monsters(board):
 
     zombie_1 = {
     "name": "zombie_1",
-    "icon": "Z", 
+    "icon": "👹",
     "position x": 1,
     "position y": 2,
     "default turn": [1, 0],
@@ -96,7 +96,7 @@ def create_monsters(board):
 
     zombie_2 = {
     "name": "zombie_2",
-    "icon": "Z", 
+    "icon": "👹",
     "position x": len(board[0][0]) - 2,
     "position y": int(len(board[0])/2) + 3,
     "default turn": [-1, 0],
@@ -113,7 +113,7 @@ def create_monsters(board):
 def create_boss(board):
     boss = {
     "name": "boss",
-    "icon": [['%', '%', '%', '%', '%'], ['%', '%', '%', '%', '%'], ['%', '%', '%', '%', '%'], ['%', '%', '%', '%', '%'], ['%', '%', '%', '%', '%']],
+    "icon": [['👾', '👾', '👾', '👾', '👾'], ['👾', '👾', '👾', '👾', '👾'], ['👾', '👾', '👾', '👾', '👾'], ['👾', '👾', '👾', '👾', '👾'], ['👾', '👾', '👾', '👾', '👾']],
     #"icon": '%',
     "position x": int(len(board[0][0])/2),
     "position y": int(len(board[0])/2),
