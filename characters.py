@@ -125,3 +125,25 @@ def create_boss(board):
     }
 
     return boss
+
+def create_items(board):
+    armor = {
+    "name": "Armor",
+    "icon": "🥼",
+    "position x": int(len(board[0][0])/2) + 3,
+    "position y": len(board[0]) - 2,
+    "default turn🪄": [0, 1],
+    "board": 0,
+    }
+    wand = {
+    "name": "Wand",
+    "icon": "🪄",
+    "position x": int(len(board[0][0])/2) + 6,
+    "position y": len(board[0]) - 11,
+    "default turn": [0, 1],
+    "board": 1,
+    }
+
+    items =[armor,wand]
+
+    return items

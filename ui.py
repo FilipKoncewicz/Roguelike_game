@@ -31,10 +31,10 @@ def display_board(board, boss):
                 print(cell, end = "")
             elif cell == "👾" and boss["condition"] == 1:
                 print(cell, end = "")
-            elif cell == "F":
-                print(GREEN + cell, end = " ")
-            elif cell in "SA":
-                print(WHITE + cell, end = " ")
+            elif cell == "🥼":
+                print(cell, end = "")
+            elif cell in "🪄":
+                print(cell, end = " ")
             elif cell == "K":
                 print(YELLOW + cell, end = " ")
         print(Style.RESET_ALL)

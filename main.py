@@ -26,13 +26,15 @@ def initiate_game():
     gates = [[gate_x_0_1, gate_y_0_1], [gate_x_1_0, gate_y_1_0], [gate_x_1_2,gate_y_1_2], [gate_x_2_1,gate_y_2_1]]
     monsters = characters.create_monsters(board)
     boss = characters.create_boss(board)
+    items = characters.create_items(board)
     engine.put_monsters_on_board(board, monsters)
     engine.put_boss_on_board(board, boss)
+    engine.put_invetory_on_board(board, items)
 
-    board = game(board, player, gates, monsters, boss)
+    board = game(board, player, gates, monsters, boss, items)
 
     
-def game(board, player, gates, monsters, boss):
+def game(board, player, gates, monsters, boss, items):
     boss_turn_counter = 0
     is_running = True
 
@@ -40,6 +42,7 @@ def game(board, player, gates, monsters, boss):
         util.clear_screen()
         engine.put_player_on_board(board[player['board']], player)
         engine.put_monsters_on_board(board, monsters)
+        engine.put_invetory_on_board(board, items)
 
         if boss["lives"] > 0:
             engine.put_boss_on_board(board, boss)

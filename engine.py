@@ -3,13 +3,13 @@ import validator
 
 
 def change_direction(board, new_monster_position_x, new_monster_position_y, monster):
-    if board[new_monster_position_y][new_monster_position_x] == "🌫️" and monster["default turn"][0] == -1:
+    if board[new_monster_position_y][new_monster_position_x] == "🌫️"  and monster["default turn"][0] == -1:
         monster["default turn"][0] = 1
-    elif board[new_monster_position_y][new_monster_position_x] == "🌫️" and monster["default turn"][0] == 1:
+    elif board[new_monster_position_y][new_monster_position_x] == "🌫️"  and monster["default turn"][0] == 1:
         monster["default turn"][0] = -1
-    elif board[new_monster_position_y][new_monster_position_x] == "🌫️" and monster["default turn"][1] == -1:
+    elif board[new_monster_position_y][new_monster_position_x] == "🌫️"  and monster["default turn"][1] == -1:
         monster["default turn"][1] = 1
-    elif board[new_monster_position_y][new_monster_position_x] == "🌫️" and monster["default turn"][1] == 1:
+    elif board[new_monster_position_y][new_monster_position_x] == "🌫️"  and monster["default turn"][1] == 1:
         monster["default turn"][1] = -1
     return monster
 
@@ -247,4 +247,11 @@ def remove_boss_from_board(board, boss):
     for j in range(len(boss["icon"])):
         for i in range(len(boss["icon"][0])):
             board[boss["board"]][boss["position y"]+j-2][boss["position x"]+i-2] = ' '
+    return board
+
+def put_invetory_on_board(board, items):
+    for item in items:
+        x, y = item['position x'], item['position y']
+        board[item['board']][y][x] = item["icon"]
+
     return board
