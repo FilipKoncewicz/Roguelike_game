@@ -223,9 +223,14 @@ def put_monsters_on_board(board, monsters):
 
 
 def put_boss_on_board(board, boss):
-    for j in range(len(boss["icon"])):
-        for i in range(len(boss["icon"][0])):
-            board[boss["board"]][boss["position y"]+j-2][boss["position x"]+i-2] = boss["icon"][j][i]
+    if boss["condition"] == 0:
+        for j in range(len(boss["icon"][0])):
+            for i in range(len(boss["icon"][0][0])):
+                board[boss["board"]][boss["position y"]+j-2][boss["position x"]+i-2] = boss["icon"][0][j][i]
+    elif boss["condition"] == 1:
+        for j in range(len(boss["icon"][1])):
+            for i in range(len(boss["icon"][1][0])):
+                board[boss["board"]][boss["position y"]+j-2][boss["position x"]+i-2] = boss["icon"][1][j][i]
 
     return board
 
@@ -244,10 +249,11 @@ def remove_player_from_board(board, player):
 
 
 def remove_boss_from_board(board, boss):
-    for j in range(len(boss["icon"])):
-        for i in range(len(boss["icon"][0])):
+    for j in range(len(boss["icon"][0])):
+        for i in range(len(boss["icon"][0][0])):
             board[boss["board"]][boss["position y"]+j-2][boss["position x"]+i-2] = ' '
     return board
+
 
 def put_invetory_on_board(board, items):
     for item in items:
@@ -255,3 +261,13 @@ def put_invetory_on_board(board, items):
         board[item['board']][y][x] = item["icon"]
 
     return board
+
+
+def check_free_space(board):
+    free_spaces = [[] for _ in range(len(board))]
+    for i in range(len(board)):
+        for j in range(len(board[i])):
+            for k in range(len(board[i][j])):
+                if board[i][j][k] == " ":
+                    free_spaces[i].append([j, k])
+    return free_spaces

@@ -1,3 +1,6 @@
+import random
+
+
 def create_player():
     '''
     Creates a 'player' dictionary for storing all player related informations - i.e. player icon, player position.
@@ -10,7 +13,7 @@ def create_player():
     PLAYER_START_X = 3
     PLAYER_START_Y = 3
 
-    player_name = "l"# input("Enter player's name: ")
+    player_name = input("Enter player's name: ")
 
     player = {
     "name": player_name,
@@ -84,8 +87,8 @@ def create_monsters(board):
     }
 
     demon_1 = {
-    "name": "demon 1",
-    "icon": "👹",
+    "name": "bat 1",
+    "icon": "🦇",
     "position x": 1,
     "position y": 2,
     "default turn": [1, 0],
@@ -95,8 +98,8 @@ def create_monsters(board):
     }
 
     demon_2 = {
-    "name": "demon 2",
-    "icon": "👹",
+    "name": "bat 2",
+    "icon": "🦇",
     "position x": len(board[0][0]) - 2,
     "position y": int(len(board[0])/2) + 3,
     "default turn": [-1, 0],
@@ -113,8 +116,7 @@ def create_monsters(board):
 def create_boss(board):
     boss = {
     "name": "boss",
-    "icon": [['👾', '👾', '👾', '👾', '👾'], ['👾', '👾', '👾', '👾', '👾'], ['👾', '👾', '👾', '👾', '👾'], ['👾', '👾', '👾', '👾', '👾'], ['👾', '👾', '👾', '👾', '👾']],
-    #"icon": '%',
+    "icon": [[['👾', '👾', '👾', '👾', '👾'], ['👾', '👾', '👾', '👾', '👾'], ['👾', '👾', '👾', '👾', '👾'], ['👾', '👾', '👾', '👾', '👾'], ['👾', '👾', '👾', '👾', '👾']], [['👹', '👹', '👹', '👹', '👹'], ['👹', '👹', '👹', '👹', '👹'], ['👹', '👹', '👹', '👹', '👹'], ['👹', '👹', '👹', '👹', '👹'], ['👹', '👹', '👹', '👹', '👹']]],
     "position x": int(len(board[0][0])/2),
     "position y": int(len(board[0])/2),
     "board": 2,
@@ -126,18 +128,28 @@ def create_boss(board):
 
     return boss
 
-def create_items(board):
+def create_items(board, free_spaces):
+    ""
     armor = {
     "name": "Armor",
     "icon": "🥼",
-    "position x": int(len(board[0][0])/2) + 3,
-    "position y": len(board[0]) - 2,
-    "default turn🪄": [0, 1],
     "board": 0,
+    "position x": random.choice(free_spaces[0])[0],
+    "position y": random.choice(free_spaces[0])[1],
+    "default turn🪄": [0, 1]
     }
     wand = {
     "name": "Wand",
     "icon": "🪄",
+    "position x": int(len(board[0][0])/2) + 6,
+    "position y": len(board[0]) - 11,
+    "default turn": [0, 1],
+    "board": 1,
+    "strength": 2
+    }
+    wand = {
+    "name": "key",
+    "icon": "🗝️",
     "position x": int(len(board[0][0])/2) + 6,
     "position y": len(board[0]) - 11,
     "default turn": [0, 1],

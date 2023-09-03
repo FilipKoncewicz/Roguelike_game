@@ -8,8 +8,8 @@ def validate_turn(board, player_new_coordinates):
 
 
 def validate_boss_turn(board, boss, player):
-    for j in range(len(boss["icon"])):
-        for i in range(len(boss["icon"][0])):
+    for j in range(len(boss["icon"][0])):
+        for i in range(len(boss["icon"][0][0])):
             if board[boss["board"]][boss["position x"]+j-2][boss["position y"]+i-2] != ' ':
                 return False
             

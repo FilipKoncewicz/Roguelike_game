@@ -20,22 +20,22 @@ def display_board(board, boss):
     for row in board:
         for cell in row:
             if cell == '🌫️':
-                print(cell, end = " ")
+                print(cell, end = "")
             elif cell == '🧙':
                 print(cell, end = "")
             elif cell == ' ':
                 print(WHITE + cell, end = " ")
-            elif cell in "👻👳👹️":
+            elif cell in "👻👳🦇":
                 print(cell, end = "")
             elif cell == "👾" and boss["condition"] == 0:
                 print(cell, end = "")
-            elif cell == "👾" and boss["condition"] == 1:
+            elif cell == "👹" and boss["condition"] == 1:
                 print(cell, end = "")
             elif cell == "🥼":
                 print(cell, end = "")
             elif cell in "🪄":
                 print(cell, end = "")
-            elif cell == "K":
+            elif cell == "🗝️":
                 print(YELLOW + cell, end = " ")
         print(Style.RESET_ALL)
 

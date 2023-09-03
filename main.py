@@ -26,9 +26,10 @@ def initiate_game():
     gates = [[gate_x_0_1, gate_y_0_1], [gate_x_1_0, gate_y_1_0], [gate_x_1_2,gate_y_1_2], [gate_x_2_1,gate_y_2_1]]
     monsters = characters.create_monsters(board)
     boss = characters.create_boss(board)
-    items = characters.create_items(board)
     engine.put_monsters_on_board(board, monsters)
     engine.put_boss_on_board(board, boss)
+    free_spaces = engine.check_free_space(board)
+    items = characters.create_items(board, free_spaces)
     engine.put_invetory_on_board(board, items)
 
     board = game(board, player, gates, monsters, boss, items)
@@ -61,7 +62,7 @@ def game(board, player, gates, monsters, boss, items):
             player_new_y = player['position y'] + DIRECTIONS_Y[key]
             boss_turn_counter += 1
         
-        if board[player['board']][player_new_y][player_new_x] == "👾":
+        if board[player['board']][player_new_y][player_new_x] == "👾" or board[player['board']][player_new_y][player_new_x] == "👹":
             engine.fight_boss(boss, player)
         
         engine.remove_player_from_board(board[player['board']], player)
@@ -92,3 +93,4 @@ def game(board, player, gates, monsters, boss, items):
             player['position x'], player['position y'] = gates[2]
 
     print("The end")
+    input()
