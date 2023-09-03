@@ -1,6 +1,32 @@
 import random
 import validator
 
+
+def change_direction(board, new_monster_position_x, new_monster_position_y, monster):
+    if board[new_monster_position_y][new_monster_position_x] == "#" and monster["default turn"][0] == -1:
+        monster["default turn"][0] = 1
+    elif board[new_monster_position_y][new_monster_position_x] == "#" and monster["default turn"][0] == 1:
+        monster["default turn"][0] = -1
+    elif board[new_monster_position_y][new_monster_position_x] == "#" and monster["default turn"][1] == -1:
+        monster["default turn"][1] = 1
+    elif board[new_monster_position_y][new_monster_position_x] == "#" and monster["default turn"][1] == 1:
+        monster["default turn"][1] = -1
+    return monster
+
+
+def move_monsters(monsters, player, board):
+    for monster in monsters:
+        if monster["board"] == player["board"]:
+            new_monster_position_x = monster["position x"] + monster["default turn"][0]
+            new_monster_position_y = monster["position y"] + monster["default turn"][1]
+            board = put_monsters_on_board(board, monsters)
+            if validator.validate_monster_turn(board[player["board"]], new_monster_position_x, new_monster_position_y):
+                remove_monsters_from_board(board[player['board']], monsters)
+                monster["position x"] = new_monster_position_x
+                monster["position y"] = new_monster_position_y
+            change_direction(board[player["board"]], new_monster_position_x, new_monster_position_y, monster)
+
+
 def attack_boss(player,boss):
     inside = []
 
@@ -26,8 +52,8 @@ def fight_boss(boss, player):
         boss["attacks_in_cycle"] = 0
         boss["condition"] = 1
     
-    
     return boss, player
+
 
 def move_monster(board, player, monster):
     if abs(player["position x"] - monster["position x"]) == 1 and abs(player["position y"] - monster["position y"]) == 0 or abs(player["position x"] - monster["position x"]) == 1 and abs(player["position y"] - monster["position y"]) == 0:
@@ -45,6 +71,7 @@ def move_monster(board, player, monster):
 
     if validator.validate_boss_turn(board, monster, player):
         return monster  
+
 
 def check_boss_neighborhood(boss, player):
     area = []
@@ -203,6 +230,13 @@ def put_boss_on_board(board, boss):
 
     return board
 
+
+def remove_monsters_from_board(board, monsters):
+    for monster in monsters:
+        x,y = monster['position x'],monster['position y']
+        board[y][x] = ' '
+    return board
+
  
 def remove_player_from_board(board, player):
     x,y = player['position x'],player['position y']
@@ -215,4 +249,3 @@ def remove_boss_from_board(board, boss):
         for i in range(len(boss["icon"][0])):
             board[boss["board"]][boss["position y"]+j-2][boss["position x"]+i-2] = ' '
     return board
-    

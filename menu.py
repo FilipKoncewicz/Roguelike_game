@@ -6,7 +6,6 @@ from main import initiate_game
 from music import menu_music,head_music,story_music
 
 
-
 def display_menu():
     """
     Menu display function.
@@ -67,6 +66,7 @@ def game():
         initiate_game()
     elif game_mode == '2':
         exit()
+
 
 def display_story():
     print(PICTURE_STORY_1)

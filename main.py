@@ -31,7 +31,6 @@ def initiate_game():
 
     board = game(board, player, gates, monsters, boss)
 
-
     
 def game(board, player, gates, monsters, boss):
     boss_turn_counter = 0
@@ -40,6 +39,7 @@ def game(board, player, gates, monsters, boss):
     while player["lives"] > 0 and is_running:
         util.clear_screen()
         engine.put_player_on_board(board[player['board']], player)
+        engine.put_monsters_on_board(board, monsters)
 
         if boss["lives"] > 0:
             engine.put_boss_on_board(board, boss)
@@ -61,18 +61,19 @@ def game(board, player, gates, monsters, boss):
         if board[player['board']][player_new_y][player_new_x] == "%":
             engine.fight_boss(boss, player)
         
-
         engine.remove_player_from_board(board[player['board']], player)
+        engine.move_monsters(monsters, player, board)
+
         if validator.validate_turn(board[player['board']], (player_new_x, player_new_y)):
             player['position x'] = player_new_x
             player['position y'] = player_new_y
 
         board = engine.remove_boss_from_board(board, boss)
+
         if (player["board"] == boss["board"]) and (boss_turn_counter % 5 == 0):
             if not engine.check_boss_neighborhood(boss, player):
                 boss["condition"] = 0
             engine.move_boss(board, player, boss)
-
 
         if [player['position x'], player['position y']] == gates[0]:
             player['board'] = 1
@@ -88,5 +89,3 @@ def game(board, player, gates, monsters, boss):
             player['position x'], player['position y'] = gates[2]
 
     print("The end")
-
-

@@ -21,8 +21,8 @@ def display_board(board, boss):
         for cell in row:
             if cell == '#':
                 print(CYAN + cell, end = " ")
-            elif cell == '@':
-                print(WHITE + cell, end = " ")
+            elif cell == '🧙':
+                print(WHITE + cell, end = "")
             elif cell == ' ':
                 print(WHITE + cell, end = " ")
             elif cell in "XMZ":

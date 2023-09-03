@@ -6,7 +6,7 @@ def create_player():
     Returns:
     dictionary
     '''
-    PLAYER_ICON = '@'
+    PLAYER_ICON = '🧙'
     PLAYER_START_X = 3
     PLAYER_START_Y = 3
 
@@ -33,6 +33,7 @@ def create_monsters(board):
     "icon": "X", 
     "position x": len(board[0][0]) - 3,
     "position y": 1,
+    "default turn": [0, 1],
     "board": 0,
     "lives": 2,
     "strength": [0, 1]
@@ -43,6 +44,7 @@ def create_monsters(board):
     "icon": "X", 
     "position x": 1,
     "position y": int(len(board[0])/2),
+    "default turn": [1, 0],
     "board": 0,
     "lives": 2,
     "strength": [0, 1]
@@ -53,6 +55,7 @@ def create_monsters(board):
     "icon": "M", 
     "position x": len(board[0][0]) - 2,
     "position y": int(len(board[0])/2) + 3,
+    "default turn": [-1, 0],
     "board": 0,
     "lives": 4,
     "strength": [1, 2]
@@ -63,6 +66,7 @@ def create_monsters(board):
     "icon": "M", 
     "position x": int(len(board[0][0])/2) + 3,
     "position y": len(board[0]) - 2,
+    "default turn": [0, -1],
     "board": 1,
     "lives": 4,
     "strength": [1, 2]
@@ -73,6 +77,7 @@ def create_monsters(board):
     "icon": "M", 
     "position x": 3,
     "position y": 1,
+    "default turn": [0, 1],
     "board": 1,
     "lives": 4,
     "strength": [1, 2]
@@ -83,6 +88,7 @@ def create_monsters(board):
     "icon": "Z", 
     "position x": 1,
     "position y": 2,
+    "default turn": [1, 0],
     "board": 1,
     "lives": 6,
     "strength": [2, 3]
@@ -93,6 +99,7 @@ def create_monsters(board):
     "icon": "Z", 
     "position x": len(board[0][0]) - 2,
     "position y": int(len(board[0])/2) + 3,
+    "default turn": [-1, 0],
     "board": 1,
     "lives": 6,
     "strength": [2, 3]
