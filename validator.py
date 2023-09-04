@@ -3,7 +3,7 @@ def validate_turn(board, player_new_coordinates):
     
     if board[y][x] in "🌫️👾👻👳👹️":
         return False
-    
+
     return True
 
 
@@ -14,6 +14,7 @@ def validate_boss_turn(board, boss, player):
                 return False
             
     return True
+
 
 def validate_monster_turn(board, new_monster_position_x, new_monster_position_y):
     x,y = new_monster_position_x, new_monster_position_y

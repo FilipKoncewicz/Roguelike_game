@@ -1,4 +1,3 @@
-
 from picture import PICTURE_MENU,PICTURE_MENU_2,PICTURE_STORY_1,PICTURE_STORY_2,PICTURE_STORY_3,INPUT_PICTURE
 from util import clear_screen
 from sys import exit
@@ -55,16 +54,18 @@ def run_game():
     Returns:
         Lack
     """
+    PLAY = '1'
+    EXIT = '2'
     menu_music()
     game_mode = get_menu_option()
 
-    if game_mode == '1':
+    if game_mode == PLAY:
         clear_screen()
         story_music()
         display_story()
         head_music()
         initiate_game()
-    elif game_mode == '2':
+    elif game_mode == EXIT:
         exit()
 
 
@@ -82,12 +83,3 @@ def display_story():
 ........
  ''')
     clear_screen()
-
-    
-    
-    
-    
-    
-    
-    
-    

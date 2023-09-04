@@ -16,7 +16,6 @@ DIRECTIONS_Y = {'w': -1, 'd': 0, 's': 1, 'a': 0}
 def initiate_game():
     util.clear_screen
     player = characters.create_player()
-    
     board = engine.create_board(NUMBER_OF_ROOMS, BOARD_WIDTH, BOARD_HEIGHT)
     board[0], last_wall_choice, gate_x_0_1, gate_y_0_1 = engine.generate_random_gate(board[0], None)
     board[1], gate_x_1_0, gate_y_1_0 = engine.connect_gate(board[1], last_wall_choice, gate_x_0_1, gate_y_0_1)
@@ -48,7 +47,7 @@ def game(board, player, gates, monsters, boss, items):
         if boss["lives"] > 0:
             engine.put_boss_on_board(board, boss)
 
-        ui.display_board(board[player['board']],boss)
+        ui.display_board(board[player['board']])
         # ui.display_board_in_line(board)
 
         ui.display_hud(player, boss)
@@ -65,7 +64,7 @@ def game(board, player, gates, monsters, boss, items):
         if board[player['board']][player_new_y][player_new_x] == "👾" or board[player['board']][player_new_y][player_new_x] == "👹":
             engine.fight_boss(boss, player)
         
-        engine.remove_player_from_board(board[player['board']], player)
+        engine.remove_being_from_board(board[player['board']], player)
         engine.move_monsters(monsters, player, board)
 
         if validator.validate_turn(board[player['board']], (player_new_x, player_new_y)):

@@ -1,6 +1,6 @@
 import random
 import validator
-
+# put, remove, board, move, fight
 
 def change_direction(board, new_monster_position_x, new_monster_position_y, monster):
     if board[new_monster_position_y][new_monster_position_x] == "🌫️"  and monster["default turn"][0] == -1:
@@ -27,14 +27,18 @@ def move_monsters(monsters, player, board):
 
 
 def attack_boss(player,boss):
+    min_boss = -2
+    max_boss = 2
     inside = []
 
-    for i in range(-2, 3):
-        for j in range(-2,3):
-            inside.append([i, j])
+    for row in range(min_boss, max_boss + 1):
+        for col in range(min_boss, max_boss + 1):
+            inside.append([row, col])
 
     for position in inside:
-        if [boss["position x"] + position[0], boss["position y"] + position[1]] == [player["position x"], player["position y"]]:
+        x = boss["position x"] + position[0]
+        y = boss["position y"] + position[1]
+        if [x, y] == [player["position x"], player["position y"]]:
             return True
     return False
 
@@ -54,22 +58,22 @@ def fight_boss(boss, player):
     return boss, player
 
 
-def move_monster(board, player, monster):
-    if abs(player["position x"] - monster["position x"]) == 1 and abs(player["position y"] - monster["position y"]) == 0 or abs(player["position x"] - monster["position x"]) == 1 and abs(player["position y"] - monster["position y"]) == 0:
-        return monster
-    if abs(player["position x"] - monster["position x"]) >= abs(player["position y"] - monster["position y"]):
-        if player["position x"] - monster["position x"] > 0:
-            monster["position x"] += 1
-        else:
-            monster["position x"] -= 1
-    elif abs(player["position y"] - monster["position y"]) >= abs(player["position x"] - monster["position x"]):
-        if player["position y"] - monster["position y"] > 0:
-            monster["position y"] += 1
-        else:
-            monster["position y"] -= 1
+# def move_monster(board, player, monster):
+#     if abs(player["position x"] - monster["position x"]) == 1 and abs(player["position y"] - monster["position y"]) == 0 or abs(player["position x"] - monster["position x"]) == 1 and abs(player["position y"] - monster["position y"]) == 0:
+#         return monster
+#     if abs(player["position x"] - monster["position x"]) >= abs(player["position y"] - monster["position y"]):
+#         if player["position x"] - monster["position x"] > 0:
+#             monster["position x"] += 1
+#         else:
+#             monster["position x"] -= 1
+#     elif abs(player["position y"] - monster["position y"]) >= abs(player["position x"] - monster["position x"]):
+#         if player["position y"] - monster["position y"] > 0:
+#             monster["position y"] += 1
+#         else:
+#             monster["position y"] -= 1
 
-    if validator.validate_boss_turn(board, monster, player):
-        return monster  
+#     if validator.validate_boss_turn(board, monster, player):
+#         return monster  
 
 
 def check_boss_neighborhood(boss, player):
@@ -95,7 +99,9 @@ def check_boss_neighborhood(boss, player):
             neighborhood.append(position)
 
     for position in neighborhood:
-        if [boss["position x"] + position[0], boss["position y"] + position[1]] == [player["position x"], player["position y"]]:
+        x = boss["position x"] + position[0]
+        y = boss["position y"] + position[1]
+        if [x, y] == [player["position x"], player["position y"]]:
             return True
     return False
 
@@ -243,7 +249,7 @@ def remove_monsters_from_board(board, monsters):
 
  
 def remove_player_from_board(board, player):
-    x,y = player['position x'],player['position y']
+    x, y = player['position x'], player['position y']
     board[y][x] = ' '
     return board
 

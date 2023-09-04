@@ -31,92 +31,93 @@ def create_player():
 
 
 def create_monsters(board):
-    ghost_1 = {
-    "name": "ghost 1",
+    common_ghost = {
+    "name": "ghost",
     "icon": "👻",
+    "lives": 2,
+    "strength": [0, 1]
+    }
+
+    common_mummy = {
+    "name": "mummy",
+    "icon": "👳", 
+    "lives": 4,
+    "strength": [1, 2]
+    }
+
+    common_bat = {
+    "name": "bat",
+    "icon": "🦇",
+    "lives": 6,
+    "strength": [2, 3]
+    }
+
+    ghost_1 = {
+    **common_ghost,
     "position x": len(board[0][0]) - 3,
     "position y": 1,
     "default turn": [0, 1],
     "board": 0,
-    "lives": 2,
-    "strength": [0, 1]
     }
 
     ghost_2 = {
-    "name": "ghost 2",
-    "icon": "👻",
+    **common_ghost,
     "position x": 1,
     "position y": int(len(board[0])/2),
     "default turn": [1, 0],
     "board": 0,
-    "lives": 2,
-    "strength": [0, 1]
     }
 
     mummy_1 = {
-    "name": "mummy 1",
-    "icon": "👳", 
+    **common_mummy,
     "position x": len(board[0][0]) - 2,
     "position y": int(len(board[0])/2) + 3,
     "default turn": [-1, 0],
     "board": 0,
-    "lives": 4,
-    "strength": [1, 2]
     }
 
     mummy_2 = {
-    "name": "mummy 2",
-    "icon": "👳", 
+    **common_mummy, 
     "position x": int(len(board[0][0])/2) + 3,
     "position y": len(board[0]) - 2,
     "default turn": [0, -1],
     "board": 1,
-    "lives": 4,
-    "strength": [1, 2]
     }
 
     mummy_3 = {
-    "name": "mummy 3",
-    "icon": "👳", 
+    **common_mummy,
     "position x": 3,
     "position y": 1,
     "default turn": [0, 1],
     "board": 1,
-    "lives": 4,
-    "strength": [1, 2]
     }
 
-    demon_1 = {
-    "name": "bat 1",
-    "icon": "🦇",
+    bat_1 = {
+    **common_bat,
     "position x": 1,
     "position y": 2,
     "default turn": [1, 0],
     "board": 1,
-    "lives": 6,
-    "strength": [2, 3]
     }
 
-    demon_2 = {
-    "name": "bat 2",
-    "icon": "🦇",
+    bat_2 = {
+    **common_bat,
     "position x": len(board[0][0]) - 2,
     "position y": int(len(board[0])/2) + 3,
     "default turn": [-1, 0],
     "board": 1,
-    "lives": 6,
-    "strength": [2, 3]
     }
 
-    monsters = [ghost_1, ghost_2, mummy_1, mummy_2, mummy_3, demon_1, demon_2]
-
+    monsters = [ghost_1, ghost_2, mummy_1, mummy_2, mummy_3, bat_1, bat_2]
     return monsters
                 
 
 def create_boss(board):
+    BOSS_SIZE = 5
     boss = {
     "name": "boss",
-    "icon": [[['👾', '👾', '👾', '👾', '👾'], ['👾', '👾', '👾', '👾', '👾'], ['👾', '👾', '👾', '👾', '👾'], ['👾', '👾', '👾', '👾', '👾'], ['👾', '👾', '👾', '👾', '👾']], [['👹', '👹', '👹', '👹', '👹'], ['👹', '👹', '👹', '👹', '👹'], ['👹', '👹', '👹', '👹', '👹'], ['👹', '👹', '👹', '👹', '👹'], ['👹', '👹', '👹', '👹', '👹']]],
+    "icon": [[['👾' for _ in range(BOSS_SIZE)] for _ in range(BOSS_SIZE)], 
+             [['👹' for _ in range(BOSS_SIZE)] for _ in range(BOSS_SIZE)]],
     "position x": int(len(board[0][0])/2),
     "position y": int(len(board[0])/2),
     "board": 2,
@@ -128,35 +129,29 @@ def create_boss(board):
 
     return boss
 
+
 def create_items(board, free_spaces):
-    ""
     armor = {
-    "name": "Armor",
     "icon": "🥼",
     "board": 0,
-    "position x": random.choice(free_spaces[0])[0],
-    "position y": random.choice(free_spaces[0])[1],
-    "default turn🪄": [0, 1]
-    }
-    wand = {
-    "name": "Wand",
-    "icon": "🪄",
-    "position x": int(len(board[0][0])/2) + 6,
-    "position y": len(board[0]) - 11,
-    "default turn": [0, 1],
-    "board": 1,
-    "strength": 2
-    }
-    wand = {
-    "name": "key",
-    "icon": "🗝️",
-    "position x": int(len(board[0][0])/2) + 6,
-    "position y": len(board[0]) - 11,
-    "default turn": [0, 1],
-    "board": 1,
-    "strength": 2
+    "position x": 5,#random.choice(free_spaces[0])[0],
+    "position y": 5#random.choice(free_spaces[0])[1],
     }
 
-    items =[armor,wand]
+    # wand = {
+    # "icon": "🪄",
+    # "board": 0,
+    # "position x": random.choice(free_spaces[0])[0],
+    # "position y": random.choice(free_spaces[0])[1],
+    # }
+
+    # key = {
+    # "icon": "🗝️",
+    # "board": 0,
+    # "position x": random.choice(free_spaces[0])[1],
+    # "position y": random.choice(free_spaces[0])[1],
+    # }
+
+    items = [armor]#, wand, key]
 
     return items
