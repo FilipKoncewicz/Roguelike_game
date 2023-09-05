@@ -15,16 +15,17 @@ def display_board(board):
 
 
 def display_boss_hud(boss):
-    WEAK = 0
-    STRONG = 1
+    if boss['lives'] > 0:
+        WEAK = 0
+        STRONG = 1
 
-    print(f"Boss's lives: {boss['lives']}") 
-    
-    print("Boss's defense condition: ", end = " ")
-    if boss["condition"] == WEAK:
-        print("WEAK - Attack boss!")
-    elif boss["condition"] == STRONG:
-        print("STRONG - Don't attack boss!")
+        print(f"Boss's lives: {boss['lives']}") 
+        
+        print("Boss's defense condition: ", end = " ")
+        if boss["condition"] == WEAK:
+            print("WEAK - Attack boss!")
+        elif boss["condition"] == STRONG:
+            print("STRONG - Don't attack boss!")
 
 
 def display_hud(player, boss):

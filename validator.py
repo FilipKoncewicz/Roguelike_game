@@ -1,10 +1,11 @@
-def validate_turn(board, player_new_coordinates):
-    x,y = player_new_coordinates
-    
-    if board[y][x] in "🌫️👾👻👳👹️":
-        return False
+def validate_turn(board, player_new_x, player_new_y, player):
+    x = player_new_x
+    y =  player_new_y
+    if board[player["board"]][y][x] not in "🌫️👾👻👳👹️":
+        player['position x'] = x
+        player['position y'] = y
 
-    return True
+    return player
 
 
 def validate_boss_turn(board, boss, player):
