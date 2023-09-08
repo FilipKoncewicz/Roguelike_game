@@ -46,6 +46,7 @@ def put_invetory_on_board(board, items):
 def remove_being_from_board(board, being):
     x, y = being['position x'], being['position y']
     board[y][x] = ' '
+
     return board
 
 
@@ -53,6 +54,7 @@ def remove_inventory_from_board(board, items):
     for item in items:
         x, y = item['position x'], item['position y']
         board[y][x] = ' '
+
     return board
 
 
@@ -62,4 +64,5 @@ def remove_boss_from_board(board, boss):
             x = boss["position x"] + col - 2
             y = boss["position y"] + row - 2
             board[boss["board"]][y][x] = ' '
+            
     return board

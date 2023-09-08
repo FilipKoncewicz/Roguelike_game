@@ -3,6 +3,7 @@ from util import clear_screen
 from sys import exit
 from main import initiate_game
 from music import menu_music,head_music,story_music
+import hall_of_fame
 
 
 def display_menu():
@@ -18,6 +19,7 @@ def display_menu():
     print(PICTURE_MENU)
     print(PICTURE_MENU_2)
     option = input(INPUT_PICTURE)
+    
     return option
 
 
@@ -33,7 +35,7 @@ def get_menu_option():
         option (str): variable that stores the user's choice
     """
     option = display_menu()
-    choices = ['1', '2',]
+    choices = ['1', '2', '3']
 
     while True:
         if option in choices:
@@ -56,6 +58,7 @@ def run_game():
     """
     PLAY = '1'
     EXIT = '2'
+
     menu_music()
     game_mode = get_menu_option()
 

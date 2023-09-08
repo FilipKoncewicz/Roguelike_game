@@ -75,7 +75,7 @@ def get_gates(board):
     board[0], board[1], last_wall_choice, gate_x_0_1, gate_y_0_1, gate_x_1_0, gate_y_1_0 = generate_random_gate(board[0], board[1], None)
     board[2], board[1], last_wall_choice, gate_x_2_1, gate_y_2_1, gate_x_1_2, gate_y_1_2 = generate_random_gate(board[2], board[1], last_wall_choice)
     gates = [[gate_x_0_1, gate_y_0_1], [gate_x_1_0, gate_y_1_0], [gate_x_1_2,gate_y_1_2], [gate_x_2_1,gate_y_2_1]]
-    # print(gates)
+
     return gates
 
 
@@ -86,7 +86,7 @@ def check_free_space(board):
             for k in range(len(board[i][j])):
                 if board[i][j][k] == " ":
                     free_spaces[i].append([j, k])
-    # print(free_spaces)
+
     return free_spaces
 
 
@@ -107,6 +107,7 @@ def check_boss_neighborhood(boss, player):
             return True
     return False
 
+
 def check_player_neighborhood():
     neighborhood = []
     min_around_item = -1
@@ -119,6 +120,7 @@ def check_player_neighborhood():
     
     return neighborhood
     
+
 def update_inventory(x, y, item, player):
     if (x, y) == (item["position x"], item["position y"]):
         item["colected"] = 1
@@ -131,7 +133,6 @@ def update_inventory(x, y, item, player):
         elif item['icon'] == "🗝️":
             player["inventory"].append(item["icon"])
         
-    
 
 def collect_inventory(board, player, items):
     neighborhood = check_player_neighborhood()

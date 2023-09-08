@@ -1,5 +1,4 @@
 import random
-import copy
 
 
 def create_player():
@@ -24,9 +23,10 @@ def create_player():
     "board": 0,
     "lives": 10,
     "armor": 0,
-    "strength": 10,#1
+    "strength": 1,
     "inventory": [],
-    "used inventory": []
+    "used inventory": [],
+    "points": 0
     }
 
     return player
@@ -204,5 +204,3 @@ def give_position_items(items, free_spaces):
         print(items)
 
     return items
-
-

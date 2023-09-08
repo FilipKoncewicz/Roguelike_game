@@ -1,0 +1,4 @@
+Adam, 12
+Artur, 58
+Piotr, 11
+Agnieszka, 15

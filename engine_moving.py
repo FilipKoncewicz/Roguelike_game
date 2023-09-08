@@ -18,24 +18,16 @@ def change_direction(board, new_monster_position_x, new_monster_position_y, mons
     if board[new_monster_position_y][new_monster_position_x] == "🌫️":
         monster["default turn"][0] = -monster["default turn"][0]
         monster["default turn"][1] = -monster["default turn"][1]
+
     return monster
+
 
 def move_monster(monster, player, board, monsters):
     if monster["board"] == player["board"]:
-        # print(f"monster, ta sama plansza: {monster}")
         delta_x = abs(player["position x"] - monster["position x"])
         delta_y = abs(player["position y"] - monster["position y"])
-        # print(f"delta x: {delta_x}")
-        # print(f"delta y: {delta_y}")
-        # print(f"player['position x']: {player['position x']}")
-        # print(f"monster['position x']: {monster['position x']}")
-        # print(f"delta x: {delta_x}")
-        # print(f"player['position y']: {player['position y']}")
-        # print(f"monster['position y']: {monster['position y']}")
-        # print(f"delta x: {delta_y}")
 
         if delta_x <= 4 and delta_y <= 4:
-            # print("Follow")
             new_monster_position_x, new_monster_position_y = follow_player(player, monster)
         else:
             new_monster_position_x = monster["position x"] + monster["default turn"][0]
@@ -47,17 +39,22 @@ def move_monster(monster, player, board, monsters):
         if validator.validate_monster_turn(board, new_monster_position_x, new_monster_position_y, player, monster):
             monster['position x'] = new_monster_position_x
             monster['position y'] = new_monster_position_y
+
         engine_setting.put_monsters_on_board(board, monsters)
+
     return monster
 
 
 def move_monsters(monsters, player, board, monsters_turn_counter):
+    for monster in monsters:
+        if monster["lives"] <= 0:
+            monsters.remove(monster)
+            engine_setting.remove_being_from_board(board[player['board']], monster)
+            
     if monsters_turn_counter % 2 == 0:
         for monster in monsters:
             move_monster(monster, player, board, monsters)
 
-    
-        
 
 def follow_player(player, being):
     new_being_position_x = 0

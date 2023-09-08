@@ -5,8 +5,7 @@ def validate_player_turn(board, player_new_x, player_new_y, player, monsters):
     x = player_new_x
     y =  player_new_y
 
-
-    if board[player["board"]][y][x] not in "🌫️👾👻👳🦇👹️🔒🍎🗝️🥼":
+    if board[player["board"]][y][x] not in "🌫️👾👻👳🦇👹️🔒🍎🗝️🥼🪄":
         return True
     elif board[player["board"]][y][x] == "🔒" and "🗝️" in player["inventory"] and engine_board.get_number_od_monsters(monsters, player) == 0:
         return True

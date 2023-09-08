@@ -1,5 +1,6 @@
 import random
 
+
 def deal_damage(player, damage):
     if player["armor"] >= damage:
         player["armor"] -= damage
@@ -11,10 +12,15 @@ def deal_damage(player, damage):
             player["used inventory"].append("🥼")
         player["lives"] -= dif
 
+
 def fight_boss(boss, player, cell):
     damage = 5
 
     if cell in "👾👹":
+        if boss["lives"] > player["strength"]:
+            player["points"] += player["strength"]
+        else:
+            player["points"] += boss["lives"]
         boss["lives"] -= player["strength"]
         boss["attacks_in_cycle"] += 1
 
@@ -32,7 +38,12 @@ def fight_boss(boss, player, cell):
 def fight_monsters(monsters, player, player_new_x, player_new_y):
     for monster in monsters:
         if [player["board"], player_new_y, player_new_x] == [monster["board"], monster["position y"], monster["position x"]] and monster["lives"] > 0:
+            if monster["lives"] > player["strength"]:
+                player["points"] += player["strength"]
+            else:
+                player["points"] += monster["lives"]
             monster["lives"] -= player["strength"]
             damage = random.randint(monster["strength"][0], monster["strength"][1])
             deal_damage(player, damage)    
+            
     return monsters, player

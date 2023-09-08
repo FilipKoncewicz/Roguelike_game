@@ -31,8 +31,9 @@ def display_boss_hud(boss):
 def display_hud(player, boss, monsters):
     print(f"Player's name: {player['name']}")
     print(f"Lives: {player['lives'] * '❤️'}") 
-    print(f"Armor: {player['armor'] * '🤍'}")
+    print(f"Armor: {player['armor'] * '🛡️'}")
     print(f"Strength: {player['strength']}")
+    print(f"Points: {player['points']}")
 
     print("Inventory:", end = " ") 
     for item in player["inventory"]:
@@ -46,7 +47,3 @@ def display_hud(player, boss, monsters):
 
     if player["board"] == boss["board"]:
         display_boss_hud(boss)
-
-    # for monster in monsters:
-    #     print(f"Lives: {monster['lives']}, {id(monster)}")
-        
