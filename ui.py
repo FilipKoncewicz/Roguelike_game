@@ -28,16 +28,25 @@ def display_boss_hud(boss):
             print("STRONG - Don't attack boss!")
 
 
-def display_hud(player, boss):
+def display_hud(player, boss, monsters):
     print(f"Player's name: {player['name']}")
-    print(f"Lives: {player['lives']}") 
-    print(f"Armor: {player['armor']}") 
+    print(f"Lives: {player['lives'] * '❤️'}") 
+    print(f"Armor: {player['armor'] * '🤍'}")
+    print(f"Strength: {player['strength']}")
 
-    print("Inventory: ", end = " ") 
+    print("Inventory:", end = " ") 
     for item in player["inventory"]:
+        print(item, end = " ")
+    print()
+
+    print("Used inventory: ", end = " ") 
+    for item in player["used inventory"]:
         print(item, end = " ")
     print()
 
     if player["board"] == boss["board"]:
         display_boss_hud(boss)
+
+    # for monster in monsters:
+    #     print(f"Lives: {monster['lives']}, {id(monster)}")
         

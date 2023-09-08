@@ -15,10 +15,12 @@ def put_player_on_board(board, player):
 
 def put_monsters_on_board(board, monsters):
     for monster in monsters:
-        x, y = monster['position x'], monster['position y']
-        board[monster['board']][y][x] = monster["icon"]
+        if monster["lives"] > 0:
+            x, y = monster['position x'], monster['position y']
+            board[monster['board']][y][x] = monster["icon"]
+            # print(monster["icon"])
 
-    return board
+    return board, monsters
 
 
 def put_boss_on_board(board, boss):
@@ -34,22 +36,23 @@ def put_boss_on_board(board, boss):
 
 def put_invetory_on_board(board, items):
     for item in items:
-        x, y = item['position x'], item['position y']
-        board[item['board']][y][x] = item["icon"]
+        if item["colected"] == 0:
+            x, y = item['position x'], item['position y']
+            board[item['board']][y][x] = item["icon"]
 
     return board
 
 
-def remove_monsters_from_board(board, monsters):
-    for monster in monsters:
-        x,y = monster['position x'],monster['position y']
-        board[y][x] = ' '
-    return board
-
- 
-def remove_player_from_board(board, player):
-    x, y = player['position x'], player['position y']
+def remove_being_from_board(board, being):
+    x, y = being['position x'], being['position y']
     board[y][x] = ' '
+    return board
+
+
+def remove_inventory_from_board(board, items):
+    for item in items:
+        x, y = item['position x'], item['position y']
+        board[y][x] = ' '
     return board
 
 

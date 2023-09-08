@@ -1,4 +1,5 @@
 import random
+import characters
 
 
 def create_board(number_of_rooms, width, height):
@@ -65,8 +66,8 @@ def generate_random_gate(board, mid_board, last_wall_choice):
         gate_x1 = gate_x - width + 1
         gate_y1 = gate_y
 
-    board[gate_y][gate_x] = ' '
-    mid_board[gate_y1][gate_x1] = ' '
+    board[gate_y][gate_x] = '🔒'
+    mid_board[gate_y1][gate_x1] = '🔒'
     return board, mid_board, wall_choice, gate_x, gate_y, gate_x1, gate_y1
 
 
@@ -74,28 +75,8 @@ def get_gates(board):
     board[0], board[1], last_wall_choice, gate_x_0_1, gate_y_0_1, gate_x_1_0, gate_y_1_0 = generate_random_gate(board[0], board[1], None)
     board[2], board[1], last_wall_choice, gate_x_2_1, gate_y_2_1, gate_x_1_2, gate_y_1_2 = generate_random_gate(board[2], board[1], last_wall_choice)
     gates = [[gate_x_0_1, gate_y_0_1], [gate_x_1_0, gate_y_1_0], [gate_x_1_2,gate_y_1_2], [gate_x_2_1,gate_y_2_1]]
+    # print(gates)
     return gates
-
-
-def connect_gate(board, last_wall_choice, gate_x, gate_y):
-    width = len(board[0])
-    height = len(board)
-
-    if last_wall_choice == "top":
-        gate_x = gate_x
-        gate_y = gate_y + height - 1
-    elif last_wall_choice == "bottom":
-        gate_x = gate_x
-        gate_y = gate_y - height + 1
-    elif last_wall_choice == "left":
-        gate_x = gate_x + width -1
-        gate_y = gate_y
-    elif last_wall_choice == "right":
-        gate_x = gate_x - width + 1
-        gate_y = gate_y
-
-    board[gate_y][gate_x] = ' '
-    return board, gate_x, gate_y
 
 
 def check_free_space(board):
@@ -105,6 +86,7 @@ def check_free_space(board):
             for k in range(len(board[i][j])):
                 if board[i][j][k] == " ":
                     free_spaces[i].append([j, k])
+    # print(free_spaces)
     return free_spaces
 
 
@@ -124,3 +106,46 @@ def check_boss_neighborhood(boss, player):
         if [x, y] == [player["position x"], player["position y"]]:
             return True
     return False
+
+def check_player_neighborhood():
+    neighborhood = []
+    min_around_item = -1
+    max_around_item = 1
+
+    for x in range(min_around_item, max_around_item + 1):
+        for y in range(min_around_item, max_around_item + 1):
+            if min_around_item in (x, y) or max_around_item in (x, y):
+                neighborhood.append([x, y])
+    
+    return neighborhood
+    
+def update_inventory(x, y, item, player):
+    if (x, y) == (item["position x"], item["position y"]):
+        item["colected"] = 1
+        if item['icon'] == "🍎":
+            player["used inventory"].append(item["icon"])
+            characters.develop_player(item['icon'], player)
+        elif item['icon'] in "🥼🪄":
+            player["inventory"].append(item["icon"])
+            characters.develop_player(item['icon'], player)
+        elif item['icon'] == "🗝️":
+            player["inventory"].append(item["icon"])
+        
+    
+
+def collect_inventory(board, player, items):
+    neighborhood = check_player_neighborhood()
+
+    for position in neighborhood:
+        x = player["position x"] + position[0]
+        y = player["position y"] + position[1]
+        for item in items:
+            update_inventory(x, y, item, player)
+            
+
+def get_number_od_monsters(monsters, player):
+    number_of_monsters = 0
+    for monster in monsters:
+        if monster["board"] == player["board"] and monster["lives"] > 0:
+            number_of_monsters += 1
+    return number_of_monsters

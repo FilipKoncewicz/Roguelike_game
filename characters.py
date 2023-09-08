@@ -1,4 +1,5 @@
 import random
+import copy
 
 
 def create_player():
@@ -23,9 +24,25 @@ def create_player():
     "board": 0,
     "lives": 10,
     "armor": 0,
-    "strength": 1,
-    "inventory": []
+    "strength": 10,#1
+    "inventory": [],
+    "used inventory": []
     }
+
+    return player
+
+
+def develop_player(icon, player):
+    if icon == "🍎":
+        player["lives"] += 5
+        if player["lives"] > 10:
+            player["lives"] = 10
+    elif icon == "🥼":
+        player["armor"] += 5
+        if player["armor"] > 5:
+            player["armor"] = 5
+    elif icon == "🪄":
+        player["strength"] += 2
 
     return player
 
@@ -42,14 +59,14 @@ def create_monsters(board):
     "name": "mummy",
     "icon": "👳", 
     "lives": 4,
-    "strength": [1, 2]
+    "strength": [0, 2]
     }
 
     common_bat = {
     "name": "bat",
     "icon": "🦇",
     "lives": 6,
-    "strength": [2, 3]
+    "strength": [0, 3]
     }
 
     ghost_1 = {
@@ -130,28 +147,62 @@ def create_boss(board):
     return boss
 
 
-def create_items(board, free_spaces):
+def create_items(free_spaces):
     armor = {
     "icon": "🥼",
+    "colected": 0,
     "board": 0,
-    "position x": 5,#random.choice(free_spaces[0])[0],
-    "position y": 5#random.choice(free_spaces[0])[1],
+    "position x": None,
+    "position x": None
     }
 
-    # wand = {
-    # "icon": "🪄",
-    # "board": 0,
-    # "position x": random.choice(free_spaces[0])[0],
-    # "position y": random.choice(free_spaces[0])[1],
-    # }
+    wand = {
+    "icon": "🪄",
+    "colected": 0,
+    "board": 1,
+    "position x": None,
+    "position x": None
+    }
 
-    # key = {
-    # "icon": "🗝️",
-    # "board": 0,
-    # "position x": random.choice(free_spaces[0])[1],
-    # "position y": random.choice(free_spaces[0])[1],
-    # }
+    key = {
+    "icon": "🗝️",
+    "colected": 0,
+    "board": 0,
+    "position x": None,
+    "position x": None
+    }
 
-    items = [armor]#, wand, key]
+    common_apple = {
+    "icon": "🍎",
+    "colected": 0,
+    "position x": None,
+    "position x": None
+    }
+
+    apple_1 = {
+    **common_apple,
+    "board": 0,
+    }
+
+    apple_2 = {
+    **common_apple,
+    "board": 1,
+    }
+
+    items = [armor, wand, key, apple_1, apple_2]
+    give_position_items(items, free_spaces)
 
     return items
+
+
+def give_position_items(items, free_spaces):
+    for item in items:
+        temp = random.choice(free_spaces[item["board"]])
+        item["position y"] = temp[0]
+        item["position x"] = temp[1]
+        free_spaces[item["board"]].remove(temp)
+        print(items)
+
+    return items
+
+
